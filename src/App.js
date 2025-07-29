@@ -1,23 +1,26 @@
-import logo from './logo.svg';
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
+import MainComponent from './components/MainComponent';
+import myStore from './redux/Store';
+import { Provider } from 'react-redux';
+import ErrorBoundary from './components/error/ErrorBoundary';
+import { Error404 } from './components/error/Error404';
 
 function App() {
+  // console.log("App.js", myStore.getState());
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Provider store={myStore}>
+        <BrowserRouter>
+          <ErrorBoundary fallback={<Error404 />}>
+            <MainComponent />
+          </ErrorBoundary>
+        </BrowserRouter>
+
+      </Provider>
+
+
+
     </div>
   );
 }
